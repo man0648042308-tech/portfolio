@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="赵小力的 AI 应用开发作品集，聚焦 RAG、LangGraph、FastAPI 与企业知识库。">
+  <meta name="color-scheme" content="dark">
+  <title>赵小力｜AI 应用开发作品集</title>
+  <style>
+    :root {
+      --bg: #08111f;
+      --panel: #101c2f;
+      --panel-2: #14233a;
+      --line: #263a57;
+      --text: #f4f7fb;
+      --muted: #aab8cc;
+      --blue: #70b7ff;
+      --cyan: #67e8f9;
+      --green: #65e6a7;
+      --amber: #ffd166;
+      --shadow: 0 20px 55px rgba(0, 0, 0, .25);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% -10%, rgba(48, 116, 211, .32), transparent 32rem),
+        radial-gradient(circle at 90% 10%, rgba(12, 169, 179, .18), transparent 28rem),
+        var(--bg);
+      font: 15px/1.75 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(89, 126, 170, .25);
+      background: rgba(8, 17, 31, .82);
+      backdrop-filter: blur(16px);
+    }
+    .nav-inner { min-height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { font-weight: 800; letter-spacing: .02em; text-decoration: none; }
+    .brand span { color: var(--cyan); }
+    .nav-links { display: flex; gap: 20px; color: var(--muted); font-size: 14px; }
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+
+    .hero { padding: 88px 0 72px; }
+    .eyebrow { margin: 0 0 12px; color: var(--cyan); font-weight: 800; letter-spacing: .16em; text-transform: uppercase; font-size: 12px; }
+    h1 { margin: 0; max-width: 880px; font-size: clamp(38px, 7vw, 70px); line-height: 1.08; letter-spacing: -.045em; }
+    h1 em { color: var(--blue); font-style: normal; }
+    .lead { max-width: 760px; margin: 24px 0 0; color: var(--muted); font-size: clamp(16px, 2vw, 20px); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+      text-decoration: none;
+      font-weight: 750;
+    }
+    .btn.primary { color: #04101d; border-color: var(--cyan); background: var(--cyan); }
+    .btn:hover, .btn:focus-visible { transform: translateY(-1px); box-shadow: var(--shadow); }
+    .scope-note { margin-top: 22px; color: #8fa2ba; font-size: 13px; }
+
+    section { padding: 62px 0; border-top: 1px solid rgba(89, 126, 170, .25); }
+    .section-head { display: grid; grid-template-columns: 1fr 1.2fr; gap: 28px; margin-bottom: 28px; }
+    .section-head h2 { margin: 0; font-size: clamp(26px, 4vw, 42px); line-height: 1.15; letter-spacing: -.03em; }
+    .section-head p { margin: 0; color: var(--muted); }
+
+    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .metric, .card, .principle {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(20, 35, 58, .94), rgba(12, 25, 43, .94));
+      box-shadow: 0 12px 36px rgba(0, 0, 0, .12);
+    }
+    .metric { padding: 22px; }
+    .metric strong { display: block; color: var(--green); font-size: 27px; line-height: 1.2; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: 13px; }
+
+    .stack { display: flex; flex-wrap: wrap; gap: 9px; }
+    .tag { padding: 6px 11px; border: 1px solid #31517a; border-radius: 999px; color: #c8e3ff; background: rgba(42, 102, 175, .16); font-size: 13px; }
+
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .card { padding: 24px; }
+    .card.featured { border-color: #3f658f; }
+    .kicker { color: var(--cyan); font-size: 12px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+    .card h3 { margin: 8px 0 10px; font-size: 20px; line-height: 1.35; }
+    .card p { margin: 0; color: var(--muted); }
+    .card .tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 0; }
+    .card .tags span { color: #bfd5ef; font-size: 12px; }
+    .proof { padding-top: 14px; border-top: 1px solid var(--line); color: #d9e5f3; font-size: 13px; }
+    .proof b { color: var(--green); }
+
+    .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .principle { padding: 22px; }
+    .principle b { color: var(--amber); }
+    .principle p { margin: 8px 0 0; color: var(--muted); }
+
+    .cta { padding: 34px; border: 1px solid #3a6089; border-radius: 18px; background: linear-gradient(135deg, rgba(31, 111, 235, .22), rgba(20, 184, 166, .12)); }
+    .cta h2 { margin: 0; font-size: clamp(25px, 4vw, 38px); }
+    .cta p { max-width: 720px; margin: 12px 0 0; color: var(--muted); }
+
+    footer { padding: 32px 0 44px; color: #8092aa; font-size: 13px; }
+
+    @media (max-width: 780px) {
+      .nav-links { display: none; }
+      .hero { padding: 62px 0 52px; }
+      .section-head { grid-template-columns: 1fr; }
+      .metrics, .principles { grid-template-columns: repeat(2, 1fr); }
+      .grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 500px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .metrics, .principles { grid-template-columns: 1fr; }
+      section { padding: 48px 0; }
+      .card, .metric, .principle, .cta { border-radius: 13px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="主导航">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">赵小力<span>.AI</span></a>
+      <div class="nav-links">
+        <a href="#capabilities">能力</a>
+        <a href="#projects">项目</a>
+        <a href="#engineering">工程方法</a>
+        <a href="#contact">联系</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="wrap hero">
+      <p class="eyebrow">AI Application Engineer</p>
+      <h1>把 RAG、可控 Agent 与后端工程，做成<em>能验证的业务闭环</em>。</h1>
+      <p class="lead">我是赵小力，目标岗位为 AI 应用开发、RAG/企业知识库、Agent/LangGraph 工作流和 Python 后端（AI 平台方向）。项目以银行业务为主线，强调确定性规则、可恢复流程、真实数据库联调与回归测试。</p>
+      <div class="actions">
+        <a class="btn primary" href="#projects">查看代表项目</a>
+        <a class="btn" href="#engineering">查看工程方法</a>
+      </div>
+      <p class="scope-note">本页面是公开项目摘要，不提供联系方式或完整简历；招聘沟通请通过发送本链接的简历或招聘平台继续。</p>
+    </header>
+
+    <section id="capabilities">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>面向岗位的技术组合</h2>
+          <p>不是简单罗列框架，而是把检索、工作流、数据层、接口和测试连成可运行链路；同时明确哪些决策必须由确定性规则或人工审批完成。</p>
+        </div>
+        <div class="metrics" aria-label="项目验证指标">
+          <div class="metric"><strong>7</strong><span>个可运行项目</span></div>
+          <div class="metric"><strong>55</strong><span>三库问答项目 pytest</span></div>
+          <div class="metric"><strong>27</strong><span>GraphRAG 项目测试</span></div>
+          <div class="metric"><strong>4 + 4</strong><span>在线与离线固定评估</span></div>
+        </div>
+        <div class="stack" style="margin-top:22px">
+          <span class="tag">Python 3.12</span><span class="tag">FastAPI</span><span class="tag">LangGraph</span>
+          <span class="tag">LangChain / LCEL</span><span class="tag">Milvus</span><span class="tag">Neo4j GDS</span>
+          <span class="tag">Elasticsearch</span><span class="tag">Redis</span><span class="tag">PostgreSQL / asyncpg</span>
+          <span class="tag">Docker Compose</span><span class="tag">pytest</span><span class="tag">Ruff</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>代表项目</h2>
+          <p>优先展示与 12–15K AI 应用岗位最相关的交付证据：多库联动、混合检索、可控 Agent、数据持久化与安全闸门。</p>
+        </div>
+        <div class="grid">
+          <article class="card featured">
+            <div class="kicker">01 · 三库联动</div>
+            <h3>银行智能问答系统</h3>
+            <p>Neo4j 管理客户画像与关系、Elasticsearch 完成全文检索、Redis 承担缓存；用客户画像、产品目录和数据版本组成缓存合同，变化时自动失效。双路检索使用 RRF 融合，领域外问题进入拒答。</p>
+            <div class="tags"><span>Elasticsearch</span><span>Redis</span><span>Neo4j</span><span>RRF</span><span>缓存合同</span></div>
+            <div class="proof"><b>验证：</b>55 项 pytest、Ruff、9 项运行环境身份检查通过；在线 4/4、离线 4/4 固定评估通过。</div>
+          </article>
+
+          <article class="card featured">
+            <div class="kicker">02 · GraphRAG</div>
+            <h3>图算法与混合检索</h3>
+            <p>Neo4j GDS 执行 Dijkstra、PageRank 与 Louvain；Milvus 稠密向量和 BM25 稀疏向量通过 RRF 融合。NL2SQL 与 NL2Cypher 增加只读、安全语句和参数化闸门。</p>
+            <div class="tags"><span>Neo4j GDS</span><span>Milvus</span><span>BM25</span><span>RRF</span><span>安全闸门</span></div>
+            <div class="proof"><b>验证：</b>27 项测试通过；主流程返回目标产品并排除不符合硬规则的候选。</div>
+          </article>
+
+          <article class="card featured">
+            <div class="kicker">03 · 可控 Agent</div>
+            <h3>LangGraph HITL 推荐流程</h3>
+            <p>将人工复核与客户确认设计为两段关卡；使用 interrupt 挂起、Command 恢复和 Checkpoint 持久化。金融适当性由普通 Python 规则判定，不让大模型决定最终准入。</p>
+            <div class="tags"><span>LangGraph</span><span>HITL</span><span>Checkpoint</span><span>条件路由</span></div>
+            <div class="proof"><b>验证：</b>10 项测试通过，覆盖批准、拒绝重试、连续拒绝终止和客户拒绝四条分支。</div>
+          </article>
+
+          <article class="card">
+            <div class="kicker">04 · 数据层</div>
+            <h3>LangGraph + PostgreSQL</h3>
+            <p>从 CRUD、asyncpg 异步连接池到 AsyncPostgresSaver 检查点保存和恢复，形成 Agent 状态持久化链路，并对同步阻塞与异步吞吐做出明确取舍。</p>
+            <div class="tags"><span>PostgreSQL 16</span><span>asyncpg</span><span>AsyncPostgresSaver</span><span>Docker</span></div>
+            <div class="proof"><b>验证：</b>CRUD、连接池和检查点恢复演示通过。</div>
+          </article>
+
+          <article class="card">
+            <div class="kicker">05 · 向量推荐</div>
+            <h3>Milvus 银行产品检索</h3>
+            <p>将产品向量写入 Milvus，并把风险等级和起投金额过滤前置到检索表达式，在向量搜索前排除不合规产品，避免其占用 Top-K 名额。</p>
+            <div class="tags"><span>Milvus 2.6</span><span>PyMilvus</span><span>COSINE</span><span>前置过滤</span></div>
+            <div class="proof"><b>验证：</b>真实 Milvus 环境连通，写入 5 个产品并生成可复现推荐结果。</div>
+          </article>
+
+          <article class="card">
+            <div class="kicker">06 · 图数据库</div>
+            <h3>Neo4j Cypher 银行场景</h3>
+            <p>围绕客户、账户、交易和商户建立图模型，覆盖路径遍历、聚合与可选匹配。针对“只统计成功交易且保留零交易客户”的业务口径使用 OPTIONAL MATCH。</p>
+            <div class="tags"><span>Neo4j 5.26</span><span>Cypher</span><span>路径遍历</span><span>OPTIONAL MATCH</span></div>
+            <div class="proof"><b>验证：</b>10 项作业断言与 1 项工程断言全部通过。</div>
+          </article>
+
+          <article class="card">
+            <div class="kicker">07 · 长期主项目</div>
+            <h3>BankPilot 银行 AI 推荐系统</h3>
+            <p>按纯 Python 规则、FastAPI/PostgreSQL、RAG、LangGraph、测试与部署逐层建设。当前公开为基础层与架构路线，其余能力由上述独立工程提供验证。</p>
+            <div class="tags"><span>分层架构</span><span>Python</span><span>FastAPI</span><span>RAG 路线</span></div>
+            <div class="proof"><b>边界：</b>基础层可运行；未把规划中的模块标记为已完成。</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="engineering">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>工程方法</h2>
+          <p>项目价值不仅在“能跑”，还在能解释决策、复现结果、保留失败证据，并能在需求变化后完成回归。</p>
+        </div>
+        <div class="principles">
+          <div class="principle"><b>规则与模型分工</b><p>风险、金额、权限等硬约束使用确定性逻辑；模型负责理解、生成与柔性决策。</p></div>
+          <div class="principle"><b>测试与固定评估</b><p>优先使用 pytest、静态检查、集成脚本和固定问答集，避免只凭演示结果判断完成。</p></div>
+          <div class="principle"><b>失败可恢复</b><p>Agent 使用检查点与人工关卡；数据服务记录连接、缓存和降级边界。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="cta">
+          <h2>目标：AI 应用开发 / RAG / Agent / Python 后端</h2>
+          <p>可在面试中演示项目运行、自动测试、关键架构决策和需求变更后的回归过程。完整简历与联系方式仅通过招聘平台或定向沟通提供。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 赵小力 · AI 应用开发作品集</div>
+  </footer>
+</body>
+</html>
