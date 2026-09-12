@@ -164,7 +164,7 @@
           <p>不是简单罗列框架，而是把检索、工作流、数据层、接口和测试连成可运行链路；同时明确哪些决策必须由确定性规则或人工审批完成。</p>
         </div>
         <div class="metrics" aria-label="项目验证指标">
-          <div class="metric"><strong>7</strong><span>个可运行项目</span></div>
+          <div class="metric"><strong>8</strong><span>个可运行项目</span></div>
           <div class="metric"><strong>55</strong><span>三库问答项目 pytest</span></div>
           <div class="metric"><strong>27</strong><span>GraphRAG 项目测试</span></div>
           <div class="metric"><strong>4 + 4</strong><span>在线与离线固定评估</span></div>
@@ -239,6 +239,14 @@
             <p>按纯 Python 规则、FastAPI/PostgreSQL、RAG、LangGraph、测试与部署逐层建设。当前公开为基础层与架构路线，其余能力由上述独立工程提供验证。</p>
             <div class="tags"><span>分层架构</span><span>Python</span><span>FastAPI</span><span>RAG 路线</span></div>
             <div class="proof"><b>边界：</b>基础层可运行；未把规划中的模块标记为已完成。</div>
+          </article>
+
+          <article class="card">
+            <div class="kicker">08 · 后端迁移</div>
+            <h3>证券投顾后端 Flask → FastAPI</h3>
+            <p>将含用户画像、风险分析、RAG 检索与策略生成链路的 Flask 后端整体迁移到 FastAPI/ASGI：蓝图改 APIRouter，flask_sqlalchemy 改 SQLAlchemy 2.0 并在 lifespan 初始化引擎，静态前端改挂载服务。9 个端点的路径、入参、响应结构与状态码契约逐项保持一致，前端零改动对接，并自带 OpenAPI 交互文档。</p>
+            <div class="tags"><span>FastAPI</span><span>SQLAlchemy 2.0</span><span>Pydantic</span><span>pytest</span></div>
+            <div class="proof"><b>验证：</b>8 项自动化测试全部通过；全端点冒烟核对 200/400/404 行为与原实现一致。</div>
           </article>
         </div>
       </div>
