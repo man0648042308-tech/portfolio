@@ -164,7 +164,7 @@
           <p>不是简单罗列框架，而是把检索、工作流、数据层、接口和测试连成可运行链路；同时明确哪些决策必须由确定性规则或人工审批完成。</p>
         </div>
         <div class="metrics" aria-label="项目验证指标">
-          <div class="metric"><strong>8</strong><span>个可运行项目</span></div>
+          <div class="metric"><strong>9</strong><span>个可运行项目</span></div>
           <div class="metric"><strong>55</strong><span>三库问答项目 pytest</span></div>
           <div class="metric"><strong>27</strong><span>GraphRAG 项目测试</span></div>
           <div class="metric"><strong>4 + 4</strong><span>在线与离线固定评估</span></div>
@@ -190,7 +190,7 @@
             <h3>银行智能问答系统</h3>
             <p>Neo4j 管理客户画像与关系、Elasticsearch 完成全文检索、Redis 承担缓存；用客户画像、产品目录和数据版本组成缓存合同，变化时自动失效。双路检索使用 RRF 融合，领域外问题进入拒答。</p>
             <div class="tags"><span>Elasticsearch</span><span>Redis</span><span>Neo4j</span><span>RRF</span><span>缓存合同</span></div>
-            <div class="proof"><b>验证：</b>55 项 pytest、Ruff、9 项运行环境身份检查通过；在线 4/4、离线 4/4 固定评估通过。</div>
+            <div class="proof"><b>验证：</b>55 项 pytest、Ruff、9 项运行环境身份检查通过；在线 4/4、离线 4/4 固定评估通过。 <a href="https://github.com/man0648042308-tech/bank-qa-triple-store" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">源码仓库 →</a></div>
           </article>
 
           <article class="card featured">
@@ -198,7 +198,7 @@
             <h3>图算法与混合检索</h3>
             <p>Neo4j GDS 执行 Dijkstra、PageRank 与 Louvain；Milvus 稠密向量和 BM25 稀疏向量通过 RRF 融合。NL2SQL 与 NL2Cypher 增加只读、安全语句和参数化闸门。</p>
             <div class="tags"><span>Neo4j GDS</span><span>Milvus</span><span>BM25</span><span>RRF</span><span>安全闸门</span></div>
-            <div class="proof"><b>验证：</b>27 项测试通过；主流程返回目标产品并排除不符合硬规则的候选。</div>
+            <div class="proof"><b>验证：</b>27 项测试通过；主流程返回目标产品并排除不符合硬规则的候选。 <a href="https://github.com/man0648042308-tech/bank-graphrag-milvus" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">源码仓库 →</a></div>
           </article>
 
           <article class="card featured">
@@ -206,7 +206,7 @@
             <h3>LangGraph HITL 推荐流程</h3>
             <p>将人工复核与客户确认设计为两段关卡；使用 interrupt 挂起、Command 恢复和 Checkpoint 持久化。金融适当性由普通 Python 规则判定，不让大模型决定最终准入。</p>
             <div class="tags"><span>LangGraph</span><span>HITL</span><span>Checkpoint</span><span>条件路由</span></div>
-            <div class="proof"><b>验证：</b>10 项测试通过，覆盖批准、拒绝重试、连续拒绝终止和客户拒绝四条分支。</div>
+            <div class="proof"><b>验证：</b>10 项测试通过，覆盖批准、拒绝重试、连续拒绝终止和客户拒绝四条分支。 <a href="https://github.com/man0648042308-tech/bank-recommender-hitl" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">源码仓库 →</a></div>
           </article>
 
           <article class="card">
@@ -214,7 +214,7 @@
             <h3>LangGraph + PostgreSQL</h3>
             <p>从 CRUD、asyncpg 异步连接池到 AsyncPostgresSaver 检查点保存和恢复，形成 Agent 状态持久化链路，并对同步阻塞与异步吞吐做出明确取舍。</p>
             <div class="tags"><span>PostgreSQL 16</span><span>asyncpg</span><span>AsyncPostgresSaver</span><span>Docker</span></div>
-            <div class="proof"><b>验证：</b>CRUD、连接池和检查点恢复演示通过。</div>
+            <div class="proof"><b>验证：</b>CRUD、连接池和检查点恢复演示通过。 <a href="https://github.com/man0648042308-tech/langgraph-postgres-persistence" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">源码仓库 →</a></div>
           </article>
 
           <article class="card">
@@ -222,7 +222,7 @@
             <h3>Milvus 银行产品检索</h3>
             <p>将产品向量写入 Milvus，并把风险等级和起投金额过滤前置到检索表达式，在向量搜索前排除不合规产品，避免其占用 Top-K 名额。</p>
             <div class="tags"><span>Milvus 2.6</span><span>PyMilvus</span><span>COSINE</span><span>前置过滤</span></div>
-            <div class="proof"><b>验证：</b>真实 Milvus 环境连通，写入 5 个产品并生成可复现推荐结果。</div>
+            <div class="proof"><b>验证：</b>真实 Milvus 环境连通，写入 5 个产品并生成可复现推荐结果。 <a href="https://github.com/man0648042308-tech/bank-milvus-recommender" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">源码仓库 →</a></div>
           </article>
 
           <article class="card">
@@ -230,7 +230,7 @@
             <h3>Neo4j Cypher 银行场景</h3>
             <p>围绕客户、账户、交易和商户建立图模型，覆盖路径遍历、聚合与可选匹配。针对“只统计成功交易且保留零交易客户”的业务口径使用 OPTIONAL MATCH。</p>
             <div class="tags"><span>Neo4j 5.26</span><span>Cypher</span><span>路径遍历</span><span>OPTIONAL MATCH</span></div>
-            <div class="proof"><b>验证：</b>10 项作业断言与 1 项工程断言全部通过。</div>
+            <div class="proof"><b>验证：</b>10 项作业断言与 1 项工程断言全部通过。 <a href="https://github.com/man0648042308-tech/neo4j-cypher-bank-scene" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">源码仓库 →</a></div>
           </article>
 
           <article class="card">
@@ -246,7 +246,15 @@
             <h3>证券投顾后端 Flask → FastAPI</h3>
             <p>将含用户画像、风险分析、RAG 检索与策略生成链路的 Flask 后端整体迁移到 FastAPI/ASGI：蓝图改 APIRouter，flask_sqlalchemy 改 SQLAlchemy 2.0 并在 lifespan 初始化引擎，静态前端改挂载服务。9 个端点的路径、入参、响应结构与状态码契约逐项保持一致，前端零改动对接，并自带 OpenAPI 交互文档。</p>
             <div class="tags"><span>FastAPI</span><span>SQLAlchemy 2.0</span><span>Pydantic</span><span>pytest</span></div>
-            <div class="proof"><b>验证：</b>8 项自动化测试全部通过；全端点冒烟核对 200/400/404 行为与原实现一致。</div>
+            <div class="proof"><b>验证：</b>8 项自动化测试全部通过；全端点冒烟核对 200/400/404 行为与原实现一致。 <a href="https://github.com/man0648042308-tech/sec-investment-fastapi" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">源码仓库 →</a></div>
+          </article>
+
+          <article class="card">
+            <div class="kicker">09 · 自研长期主项目</div>
+            <h3>TopAgent 多模型编排运行时</h3>
+            <p>独立设计的 Agent 编排框架：orchestrator 负责管线状态机与人工审批门禁，router 做多模型供应商路由，runtime 承载消息总线与记忆生命周期，全流程 pytest 覆盖。运行时状态与密钥库不随仓库公开。</p>
+            <div class="tags"><span>Python</span><span>编排/状态机</span><span>多模型路由</span><span>MCP 桥</span><span>pytest</span></div>
+            <div class="proof"><b>验证：</b>13 项测试文件随仓库公开；架构含持久化消息总线与 DPAPI 密钥库设计。<a href="https://github.com/man0648042308-tech/topagent-orchestrator" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">源码仓库 →</a></div>
           </article>
         </div>
       </div>
